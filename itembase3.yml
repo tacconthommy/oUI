@@ -1,0 +1,72 @@
+#
+# Itembase app UI definition
+#
+
+##### VIEW DEFINITIONS #####
+dashboard: # Dashboard
+    type: View
+    contents:
+        label_hello:
+            type: Label
+            caption: Hello!
+
+collection: # Collection
+    type: View
+
+item: # Item
+    type: View
+
+main_set: # View set in the main site
+    type: TabViewSet
+    items:
+        dashboard_view:
+            type: ViewSetItem
+            title: Dashboard
+            icon: path/to/icon.png
+            in_bar: true
+            view: "@dashboard"
+        collection_view:
+            type: ViewSetItem
+            title: Collection
+            icon: path/to/icon.png
+            in_bar: true
+            view: "@collection"
+
+collection_set: # Set for the Collection page
+    type: NavigationViewSet
+    items:
+        item_view:
+            type: ViewSetItem
+            title: Item
+            icon: path/to/icon.png
+            in_bar: true
+
+##### APPLICATION CONFIG #####
+itembase: 
+    type: Application
+    start: "@main_set"
+    settings:
+        update_automatically:
+            type: BoolApplicationSetting
+            text: Update automatically in the background
+        personal_status:
+            type: TextApplicationSetting
+            text: Personal status message
+
+##### OTHER DEFINITIONS #####
+title_bar: # Title bar on top of the app
+    type: Bar
+    id: application_title
+    colour: "#121212"
+    objects:
+        collection_value_button:
+            type: Button
+            id: collection_value
+            align: right
+            width: 20pt
+            height: 10pt
+            caption: 0 €
+
+##### OVERRIDE DEFINITIONS #####
+ios:
+    main_set.items.dashboard_view.icon: path/to/some/other/icon.png

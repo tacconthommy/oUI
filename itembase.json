@@ -1,0 +1,66 @@
+{
+	"title_bar": {
+		"type": "bar",
+		"id": "application_title",
+		"colour": "#121212",
+		"objects": {
+			"button": {
+				"id": "collection_value",
+				"align": "right",
+				"width":"20pt",
+				"height":"10pt",
+				"caption": "0 €"
+			}
+		}
+	},
+	"main": {
+		"type": "frame",
+		"title_bar": "@application_title",
+		"navigation_bar": {
+			"objects": {
+				"dashboard_button": {
+					"type": "button",
+					"caption": "Dashboard",
+					"icon": "path/to/icon.png",
+					"tag": "1"
+				},
+				"collection_button": {
+					"type": "button",
+					"caption": "Collection",
+					"icon": "path/to/icon.png",
+					"tag": "1"
+				}				
+			}
+		}
+	},
+	"item_detail": {
+		"type": "frame",
+		"back": true,
+		"title_bar": "@application_title",
+		"navigation_bar": {
+			"objects": {
+				"edit_button": {
+					"type": "button",
+					"icon": "path/to/icon.png",
+					"tag": "1"
+				},
+				"share_button": {
+					"type": "button",
+					"icon": "path/to/icon.png",
+					"tag": "1"
+				}
+			}
+		}
+	},
+	"views": {
+		"dashboard": {
+			"base": "@main"
+		},
+		"collection": {
+			"base": "@main"
+		},
+		"item": {
+			"base": "@item_detail"
+		}
+	}
+}

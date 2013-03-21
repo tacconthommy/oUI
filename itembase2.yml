@@ -1,0 +1,65 @@
+{
+	"main_set": {
+		"type": "TabViewSet",
+		"items": {
+			"dashboard_view": {
+				"type": "ViewSetItem",
+				"title": "Dashboard",
+				"icon": "path/to/icon.png",
+				"tag": "1",
+				"view": "@dashboard"
+			},
+			"collection_view": {
+				"type": "ViewSetItem",
+				"title": "Collection",
+				"icon": "path/to/icon.png",
+				"tag": "1",
+				"view": "@collection"
+			}
+		}
+	},
+	"collection_set": {
+		"type": "NavigationViewSet",
+		"items": {
+			"item_view": {
+				"type": "ViewSetItem",
+				"title": "Item",
+				"view": "@item"
+			}
+		}
+	},
+	"title_bar": {
+		"type": "Bar",
+		"id": "application_title",
+		"colour": "#121212",
+		"objects": {
+			"collection_value_button": {
+				"type": "Button",
+				"id": "collection_value",
+				"align": "right",
+				"width":"20pt",
+				"height":"10pt",
+				"caption": "0 €"
+			}
+		}
+	},
+	"dashboard": {
+		"type": "View",
+		"contents": {
+			"label_hello": {
+				"type": "Label",
+				"caption": "Hello!"
+			}
+		}
+	},
+	"collection": {
+		"type": "View"
+	},
+	"item": {
+		"type": "View"
+	},
+	"itembase": {
+		"type": "Application",
+		"start": "@main_set"
+	}
+}

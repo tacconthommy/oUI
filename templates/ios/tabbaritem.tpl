@@ -1,0 +1,1 @@
+<tabBarItem key="tabBarItem" title="###!TITLE!###" image="###!ICON!###" id="###!ID!###"/>
