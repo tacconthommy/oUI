@@ -109,11 +109,9 @@ BB10Converter.prototype.convert = function(abstractData, callback){
 
 	newStructure = "\n------ BEGIN <main.qml> ------\n"+newStructure+"\n------ END <main.qml> ------\n";
 
-    process.nextTick(function(){
-        callback(newStructure);
-    });
-
-//	return newStructure;
+	process.nextTick(function(){
+		callback(newStructure);
+	});
 
 };
 

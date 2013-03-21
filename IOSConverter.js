@@ -140,11 +140,9 @@ IOSConverter.prototype.convert = function(abstractData, callback){
 
 	newStructure = "\n------ BEGIN <iPhone.storyboard> ------\n"+newStructure+"\n------ END <iPhone.storyboard> ------\n";
 
-    process.nextTick(function(){
-        callback(newStructure);
-    });
-
-//	return newStructure;
+	process.nextTick(function(){
+		callback(newStructure);
+	});
 
 };
 
