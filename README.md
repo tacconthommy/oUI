@@ -8,11 +8,13 @@ Open UI description language and converter system.
 License
 -------
 
-2013 Thomas Bretzke (taccon software)
+Copyright 2013 Thomas Bretzke (taccon software)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
-You may obtain a copy of the License [here](http://www.apache.org/licenses/LICENSE-2.0).
+You may obtain a copy of the License here:
+
+  http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS-IS" BASIS,
