@@ -9,6 +9,7 @@ dashboard: # Dashboard
         label_hello:
             type: Label
             caption: Hello!
+        main_set: "@main_set"
 
 collection: # Collection
     type: View
@@ -44,7 +45,7 @@ collection_set: # Set for the Collection page
 ##### APPLICATION CONFIG #####
 itembase: 
     type: Application
-    start: "@main_set"
+    start: "@dashboard"
     settings:
         update_automatically:
             type: BoolApplicationSetting
