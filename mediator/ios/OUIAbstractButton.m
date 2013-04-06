@@ -36,9 +36,9 @@
         NSDictionary* gettableButtonProperties = [NSDictionary dictionaryWithObjectsAndKeys:
                                                     ^(){ return [self getNativeObjectCaption]; }, @"caption",
                                                     ^(){ return [self getNativeObjectLeft]; }, @"left",
-                                                    ^(){ return [self getNativeObjectLeft]; }, @"top",
-                                                    ^(int newWidth){ [self setNativeObjectLeft:newWidth]; }, @"width",
-                                                    ^(int newHeight){ [self setNativeObjectLeft:newHeight]; }, @"height",
+                                                    ^(){ return [self getNativeObjectTop]; }, @"top",
+                                                    ^(){ return [self getNativeObjectWidth]; }, @"width",
+                                                    ^(){ return [self getNativeObjectHeight]; }, @"height",
                                                     nil
                                                   ];
         
@@ -101,11 +101,23 @@
     [(UIButton *)[self nativeObject] setFrame:buttonFrame];
 }
 
+-(int)getNativeObjectWidth
+{
+    CGRect buttonFrame = [(UIButton *)[self nativeObject] frame];
+    return buttonFrame.size.width;
+}
+
 -(void)setNativeObjectHeight:(int)newHeight
 {
     CGRect buttonFrame = [(UIButton *)[self nativeObject] frame];
     buttonFrame.size = CGSizeMake(buttonFrame.size.width, newHeight);
     [(UIButton *)[self nativeObject] setFrame:buttonFrame];
+}
+
+-(int)getNativeObjectHeight
+{
+    CGRect buttonFrame = [(UIButton *)[self nativeObject] frame];
+    return buttonFrame.size.height;
 }
 
 - (void)onTouchedUp
