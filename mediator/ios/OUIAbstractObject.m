@@ -14,6 +14,7 @@
 @synthesize nativeObject;
 @synthesize settableProperties;
 @synthesize gettableProperties;
+@synthesize objectEvents;
 
 - (id)init
 {
@@ -30,7 +31,7 @@
     return self;
 }
 
--(void)setProperty:(NSString *)propertyName value:(NSString *)newValue
+-(void)setProperty:(NSString *)propertyName value:(id)newValue
 {
     id propertySetter = [[self settableProperties] objectForKey:propertyName];
     ((void(^)())propertySetter)(newValue);
@@ -40,6 +41,12 @@
 {
     id propertyGetter = [[self gettableProperties] objectForKey:propertyName];
     return ((id(^)())propertyGetter)();
+}
+
+-(void)addEventHandler:(NSString *)eventName handler:(OUICallbackBlock)callback
+{
+    id eventSetter = [[self objectEvents] objectForKey:eventName];
+    ((void(^)())eventSetter)(callback);
 }
 
 @end

@@ -6,7 +6,7 @@
 //  Copyright 2013 taccon software. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 typedef void (^OUICallbackBlock)();
 
@@ -15,16 +15,19 @@ typedef void (^OUICallbackBlock)();
 	NSString* identificator;
     NSDictionary* settableProperties;
     NSDictionary* gettableProperties;
+    NSDictionary* objectEvents;
 }
 
 @property (retain) NSObject* nativeObject;
 @property (retain) NSString* identificator;
 @property (retain) NSDictionary* settableProperties;
 @property (retain) NSDictionary* gettableProperties;
+@property (retain) NSDictionary* objectEvents;
 
 
 -(id)initWithNativeObject:(NSObject*)newNativeObject identificator:(NSString*)newIdentificator;
--(void)setProperty:(NSString *)propertyName value:(NSString *)newValue;
+-(void)setProperty:(NSString *)propertyName value:(id)newValue;
 -(id)getProperty:(NSString *)propertyName;
+-(void)addEventHandler:(NSString *)eventName handler:(OUICallbackBlock)callback;
 
 @end

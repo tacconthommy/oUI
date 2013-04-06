@@ -21,7 +21,8 @@
                          identificator:newIdentificator
            ];
     if (self) {
-
+        
+        // Define property setters/getters
         NSDictionary* settableButtonProperties = [NSDictionary dictionaryWithObjectsAndKeys:
                                                   ^(NSString* newCaption){ [self setNativeObjectCaption:newCaption]; }, @"caption",
                                                   ^(int newLeft){ [self setNativeObjectLeft:newLeft]; }, @"left",
@@ -31,19 +32,28 @@
                                                   nil
                                                 ];
 
+
         NSDictionary* gettableButtonProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                    ^(NSString* newCaption){ [self setNativeObjectCaption:newCaption]; }, @"caption",
-                                                    ^(int newLeft){ [self setNativeObjectLeft:newLeft]; }, @"left",
-                                                    ^(int newTop){ [self setNativeObjectLeft:newTop]; }, @"top",
+                                                    ^(){ return [self getNativeObjectCaption]; }, @"caption",
+                                                    ^(){ return [self getNativeObjectLeft]; }, @"left",
+                                                    ^(){ return [self getNativeObjectLeft]; }, @"top",
                                                     ^(int newWidth){ [self setNativeObjectLeft:newWidth]; }, @"width",
                                                     ^(int newHeight){ [self setNativeObjectLeft:newHeight]; }, @"height",
                                                     nil
                                                   ];
         
-        [(UIButton*)[self nativeObject] addTarget:self action:@selector(onTouchedUp) forControlEvents:UIControlEventTouchUpInside];
+        NSDictionary* buttonEvents = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    ^(OUICallbackBlock callback){ [self setCallbackOnTouched:callback]; }, @"tap",
+                                    nil
+                                ];
 
         [self setSettableProperties:settableButtonProperties];
         [self setGettableProperties:gettableButtonProperties];
+        [self setObjectEvents:buttonEvents];
+        
+        // Define events
+        [(UIButton*)[self nativeObject] addTarget:self action:@selector(onTouchedUp) forControlEvents:UIControlEventTouchUpInside];
+
     }
     return self;
 }
@@ -53,6 +63,11 @@
     [(UIButton *)[self nativeObject] setTitle: newCaption forState: UIControlStateNormal];
 }
 
+-(NSString *)getNativeObjectCaption
+{
+    return [(UIButton *)[self nativeObject] titleForState:UIControlStateNormal];
+}
+
 -(void)setNativeObjectLeft:(int)newLeft
 {
     CGRect buttonFrame = [(UIButton *)[self nativeObject] frame];
@@ -60,11 +75,23 @@
     [(UIButton *)[self nativeObject] setFrame:buttonFrame];
 }
 
+-(int)getNativeObjectLeft
+{
+    CGRect buttonFrame = [(UIButton *)[self nativeObject] frame];
+    return buttonFrame.origin.x;
+}
+
 -(void)setNativeObjectTop:(int)newTop
 {
     CGRect buttonFrame = [(UIButton *)[self nativeObject] frame];
     buttonFrame.origin = CGPointMake(buttonFrame.origin.x, newTop);
     [(UIButton *)[self nativeObject] setFrame:buttonFrame];
+}
+
+-(int)getNativeObjectTop
+{
+    CGRect buttonFrame = [(UIButton *)[self nativeObject] frame];
+    return buttonFrame.origin.y;
 }
 
 -(void)setNativeObjectWidth:(int)newWidth
@@ -81,9 +108,11 @@
     [(UIButton *)[self nativeObject] setFrame:buttonFrame];
 }
 
-- (void)onTouchedUp:(id)sender forEvent:(UIEvent *)event
+- (void)onTouchedUp
 {
-    [self callbackOnTouched];
+    if ([self callbackOnTouched]) {
+        ((void(^)())[self callbackOnTouched])();   
+    }
 }
 
 @end

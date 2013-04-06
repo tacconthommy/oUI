@@ -20,7 +20,7 @@
 @property int top;
 @property (readwrite, copy) OUICallbackBlock callbackOnTouched;
 
--(id)initWithNativeObject:(UIButton*)newNativeObject identificator:(NSString*)newIdentificator;
+-(id)initWithNativeObject:(NSObject*)newNativeObject identificator:(NSString*)newIdentificator;
 -(void)setNativeObjectCaption:(NSString *)newCaption;
 -(void)setNativeObjectLeft:(int)newLeft;
 -(void)setNativeObjectTop:(int)newTop;
