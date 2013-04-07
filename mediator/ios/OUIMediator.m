@@ -31,15 +31,29 @@
     [(OUIAbstractObject *)[[self UIObjects] objectForKey:identificator] setProperty:newProperty value:newValue];
 }
 
+-(id)get:(NSString *)identificator property:(NSString *)newProperty
+{
+    return [(OUIAbstractObject *)[[self UIObjects] objectForKey:identificator] getProperty:newProperty];
+}
 
 -(void)on:(NSString *)identificator event:(NSString *)newEvent handler:(OUICallbackBlock)callback
 {
     [(OUIAbstractObject* )[[self UIObjects] objectForKey:identificator] addEventHandler:newEvent handler:callback];
 }
 
--(id)get:(NSString *)identificator property:(NSString *)newProperty
+-(void)off:(NSString *)identificator event:(NSString *)newEvent
 {
-    return [(OUIAbstractObject *)[[self UIObjects] objectForKey:identificator] getProperty:newProperty];
+    [(OUIAbstractObject* )[[self UIObjects] objectForKey:identificator] removeEventHandler:newEvent];
+}
+
+-(NSArray *)getNativeObjects:(NSString *)identificator
+{
+    if ([(OUIAbstractObject* )[[self UIObjects] objectForKey:identificator] hasMultipleObjects]) {
+        return [(OUIAbstractObject* )[[self UIObjects] objectForKey:identificator] nativeObject];
+    } else {
+        return [NSArray arrayWithObject:[(OUIAbstractObject* )[[self UIObjects] objectForKey:identificator] nativeObject]];
+    }
+    return nil;
 }
 
 @end

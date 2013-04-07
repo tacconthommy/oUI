@@ -15,6 +15,8 @@
 @synthesize settableProperties;
 @synthesize gettableProperties;
 @synthesize objectEvents;
+@synthesize removableObjectEvents;
+@synthesize hasMultipleObjects;
 
 - (id)init
 {
@@ -27,6 +29,7 @@
     if (self) {
         [self setNativeObject:newNativeObject];
         [self setIdentificator:newIdentificator];
+        [self setHasMultipleObjects:NO];
     }
     return self;
 }
@@ -47,6 +50,12 @@
 {
     id eventSetter = [[self objectEvents] objectForKey:eventName];
     ((void(^)())eventSetter)(callback);
+}
+
+-(void)removeEventHandler:(NSString *)eventName
+{
+    id eventSetter = [[self removableObjectEvents] objectForKey:eventName];
+    ((void(^)())eventSetter)();
 }
 
 @end

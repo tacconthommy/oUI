@@ -20,6 +20,8 @@
 -(void)set:(NSString *)identificator property:(NSString *)newProperty value:(id)newValue;
 -(id)get:(NSString *)identificator property:(NSString *)newProperty;
 -(void)on:(NSString *)identificator event:(NSString *)newEvent handler:(OUICallbackBlock)callback;
+-(void)off:(NSString *)identificator event:(NSString *)newEvent;
+-(NSArray *)getNativeObjects:(NSString *)identificator;
 
 -(void)addButton:(UIButton *)nativeObject identificator:(NSString *)abstractId;
 

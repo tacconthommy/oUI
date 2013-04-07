@@ -43,10 +43,17 @@
                                     ^(OUICallbackBlock callback){ [self setCallbackOnTouched:callback]; }, @"tap",
                                     nil
                                 ];
+        
+        NSDictionary* removableButtonEvents = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      ^(){ [self setCallbackOnTouched:nil]; }, @"tap",
+                                      nil
+                                      ];
 
         [self setSettableProperties:settableButtonProperties];
         [self setGettableProperties:gettableButtonProperties];
         [self setObjectEvents:buttonEvents];
+        [self setRemovableObjectEvents:removableButtonEvents];
+        [self setHasMultipleObjects:YES];
         
         // Define events
         [(UIButton*)[self nativeObject] addTarget:self action:@selector(onTouchedUp) forControlEvents:UIControlEventTouchUpInside];
