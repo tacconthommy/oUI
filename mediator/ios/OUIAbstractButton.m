@@ -10,9 +10,6 @@
 
 @implementation OUIAbstractButton
 
-@synthesize caption;
-@synthesize left;
-@synthesize top;
 @synthesize callbackOnTouched;
 
 -(id)initWithNativeObject:(NSObject*)newNativeObject identificator:(NSString*)newIdentificator

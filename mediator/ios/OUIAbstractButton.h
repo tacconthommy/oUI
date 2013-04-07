@@ -9,15 +9,9 @@
 #import "OUIAbstractObject.h"
 
 @interface OUIAbstractButton : OUIAbstractObject {
-    NSString* caption;
-    int left;
-    int top;
     OUICallbackBlock callbackOnTouched;
 }
 
-@property (retain) NSString* caption;
-@property int left;
-@property int top;
 @property (readwrite, copy) OUICallbackBlock callbackOnTouched;
 
 -(id)initWithNativeObject:(NSObject*)newNativeObject identificator:(NSString*)newIdentificator;
