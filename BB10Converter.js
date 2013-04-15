@@ -48,7 +48,7 @@ BB10Converter.prototype._convertTabViewSet = function(abstractStructure) {
 		generatedTabs = generatedTabs + converter._replaceTemplateVariables(tabData, {
 			'TITLE': objectData.title,
 			'IMAGESRC': objectData.icon,
-			'CONTENT': ''
+			'CONTENT': '' // TODO: Convert view here!
 		});
 	});
 
@@ -99,9 +99,24 @@ BB10Converter.prototype.convert = function(abstractData, callback){
 
 	console.log('Start is  "'+startView.id+'" (type: '+startView.type+').');
 
-	if (startView.type == 'TabViewSet') {
-		newStructure = converter._convertTabViewSet(startView);
+	if (startView.type != 'TabViewSet') {
+		if (startView.type == 'View') {
+			var startTabViewSet = null;
+			_.each(startView.contents, function(contentEntryData, contentEntryId){
+				if (_.isString(contentEntryData)) {
+					startTabViewSet = converter._findObject(viewSets, contentEntryData);
+				}
+			});
+			if (startTabViewSet != null) {
+				newStructure = converter._convertTabViewSet(startTabViewSet);
+			} else {
+				newStructure = converter._convertView(startView);
+			}
+		}
 	}
+
+
+	// TODO: Go through other data entries
 
 	newStructure = converter._replaceTemplateVariables(baseStructure, {
 		'CONTENT': newStructure

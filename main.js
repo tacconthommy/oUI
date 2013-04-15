@@ -33,5 +33,5 @@ if (process.argv.length > 3) {
 	};
 
 } else {
-	console.log('Please provide an input file and at lease one converter name!');
+	console.log('Please provide an input file and at least one converter name!');
 }

@@ -129,8 +129,20 @@ IOSConverter.prototype.convert = function(abstractData, callback){
 
 	console.log('Start is  "'+startView.id+'" (type: '+startView.type+').');
 
-	if (startView.type == 'TabViewSet') {
-		newStructure = converter._convertTabViewSet(startView);
+	if (startView.type != 'TabViewSet') {
+		if (startView.type == 'View') {
+			var startTabViewSet = null;
+			_.each(startView.contents, function(contentEntryData, contentEntryId){
+				if (_.isString(contentEntryData)) {
+					startTabViewSet = converter._findObject(viewSets, contentEntryData);
+				}
+			});
+			if (startTabViewSet != null) {
+				newStructure = converter._convertTabViewSet(startTabViewSet);
+			} else {
+				newStructure = converter._convertView(startView);
+			}
+		}
 	}
 
 	newStructure = converter._replaceTemplateVariables(baseStructure, {
