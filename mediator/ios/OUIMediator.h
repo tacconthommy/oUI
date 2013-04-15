@@ -1,6 +1,5 @@
 //
 //  Mediator.h
-//  changed
 //
 //  Created by Thomas Bretzke on 05.04.13.
 //  Copyright 2013 taccon software. All rights reserved.
@@ -9,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "OUIAbstractObject.h"
 #import "OUIAbstractButton.h"
+#import "OUIAbstractViewSetItem.h"
 
 @interface OUIMediator : NSObject {
     NSMutableDictionary* UIObjects;
@@ -24,5 +24,6 @@
 -(NSArray *)getNativeObjects:(NSString *)identificator;
 
 -(void)addButton:(UIButton *)nativeObject identificator:(NSString *)abstractId;
+-(void)addViewSetItem:(UITabBarItem *)nativeObject identificator:(NSString *)abstractId;
 
 @end

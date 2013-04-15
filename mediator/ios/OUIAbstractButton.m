@@ -20,40 +20,36 @@
     if (self) {
         
         // Define property setters/getters
-        NSDictionary* settableButtonProperties = [NSDictionary dictionaryWithObjectsAndKeys:
+        [self setSettableProperties: [NSDictionary dictionaryWithObjectsAndKeys:
                                                   ^(NSString* newCaption){ [self setNativeObjectCaption:newCaption]; }, @"caption",
                                                   ^(int newLeft){ [self setNativeObjectLeft:newLeft]; }, @"left",
                                                   ^(int newTop){ [self setNativeObjectLeft:newTop]; }, @"top",
                                                   ^(int newWidth){ [self setNativeObjectLeft:newWidth]; }, @"width",
                                                   ^(int newHeight){ [self setNativeObjectLeft:newHeight]; }, @"height",
                                                   nil
-                                                ];
+                                                ]];
 
 
-        NSDictionary* gettableButtonProperties = [NSDictionary dictionaryWithObjectsAndKeys:
+        [self setGettableProperties: [NSDictionary dictionaryWithObjectsAndKeys:
                                                     ^(){ return [self getNativeObjectCaption]; }, @"caption",
                                                     ^(){ return [self getNativeObjectLeft]; }, @"left",
                                                     ^(){ return [self getNativeObjectTop]; }, @"top",
                                                     ^(){ return [self getNativeObjectWidth]; }, @"width",
                                                     ^(){ return [self getNativeObjectHeight]; }, @"height",
                                                     nil
-                                                  ];
+                                                  ]];
         
-        NSDictionary* buttonEvents = [NSDictionary dictionaryWithObjectsAndKeys:
+        [self setObjectEvents: [NSDictionary dictionaryWithObjectsAndKeys:
                                     ^(OUICallbackBlock callback){ [self setCallbackOnTouched:callback]; }, @"tap",
                                     nil
-                                ];
+                                ]];
         
-        NSDictionary* removableButtonEvents = [NSDictionary dictionaryWithObjectsAndKeys:
+        [self setRemovableObjectEvents: [NSDictionary dictionaryWithObjectsAndKeys:
                                       ^(){ [self setCallbackOnTouched:nil]; }, @"tap",
                                       nil
-                                      ];
+                                      ]];
 
-        [self setSettableProperties:settableButtonProperties];
-        [self setGettableProperties:gettableButtonProperties];
-        [self setObjectEvents:buttonEvents];
-        [self setRemovableObjectEvents:removableButtonEvents];
-        [self setHasMultipleObjects:YES];
+        [self setHasMultipleObjects:NO];
         
         // Define events
         [(UIButton*)[self nativeObject] addTarget:self action:@selector(onTouchedUp) forControlEvents:UIControlEventTouchUpInside];

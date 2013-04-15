@@ -26,6 +26,11 @@
     [[self UIObjects] setObject:[[OUIAbstractButton alloc] initWithNativeObject:nativeObject identificator:abstractId] forKey:abstractId];
 }
 
+-(void)addViewSetItem:(UITabBarItem *)nativeObject identificator:(NSString *)abstractId
+{
+    [[self UIObjects] setObject:[[OUIAbstractViewSetItem alloc] initWithNativeObject:nativeObject identificator:abstractId] forKey:abstractId];
+}
+
 -(void)set:(NSString *)identificator property:(NSString *)newProperty value:(id)newValue
 {
     [(OUIAbstractObject *)[[self UIObjects] objectForKey:identificator] setProperty:newProperty value:newValue];
