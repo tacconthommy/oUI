@@ -23,6 +23,8 @@ var _ = require('underscore');
 function Converter() {
 	this.name = "Default";
 	this.templatePath = "./";
+	this.views = {};
+	this.viewSets = {};
 }
 
 Converter.prototype.convert = function(abstractData, callback){

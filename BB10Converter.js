@@ -44,11 +44,24 @@ BB10Converter.prototype._convertTabViewSet = function(abstractStructure) {
 	var returnData = "";
 	var converter = this;
 
+
 	_.each(abstractStructure.items, function(objectData, objectId){
+
+		// Convert nested view data
+		var currentObjectData = '';
+		if (_.isString(objectData.view)) {
+			var viewData = converter._findObject(converter.views, objectData.view);
+			if (viewData != null) {
+				currentObjectData = currentObjectData + converter._convertView(viewData.id, viewData, abstractStructure);
+			}
+		} else {
+			currentObjectData = currentObjectData + converter._convertView(objectData.view.id, objectData.view, abstractStructure);
+		}
+
 		generatedTabs = generatedTabs + converter._replaceTemplateVariables(tabData, {
 			'TITLE': objectData.title,
 			'IMAGESRC': objectData.icon,
-			'CONTENT': '' // TODO: Convert view here!
+			'CONTENT': currentObjectData
 		});
 	});
 
@@ -68,20 +81,18 @@ BB10Converter.prototype.convert = function(abstractData, callback){
 
 	var applicationData = {};
 	var applicationName = {};
-	var views = {};
-	var viewSets = {};
 
 	_.each(abstractData, function(objectData, objectId){
 		objectData.id=objectId;
 		switch (objectData.type) {
 			case "View":
-				views[objectId] = objectData;
+				converter.views[objectId] = objectData;
 				break;
 			case "TabViewSet":
-				viewSets[objectId] = objectData;
+				converter.viewSets[objectId] = objectData;
 				break;
 			case "NavigationViewSet":
-				viewSets[objectId] = objectData;
+				converter.viewSets[objectId] = objectData;
 				break;
 			case "Application":
 				applicationName = objectId;
@@ -92,9 +103,9 @@ BB10Converter.prototype.convert = function(abstractData, callback){
 
 	console.log('Found app "'+applicationName+'".');
 
-	var startView = converter._findObject(viewSets, applicationData.start);
+	var startView = converter._findObject(converter.viewSets, applicationData.start);
 	if (!startView) {
-		startView = converter._findObject(views, applicationData.start);
+		startView = converter._findObject(converter.views, applicationData.start);
 	}
 
 	console.log('Start is  "'+startView.id+'" (type: '+startView.type+').');
@@ -104,7 +115,7 @@ BB10Converter.prototype.convert = function(abstractData, callback){
 			var startTabViewSet = null;
 			_.each(startView.contents, function(contentEntryData, contentEntryId){
 				if (_.isString(contentEntryData)) {
-					startTabViewSet = converter._findObject(viewSets, contentEntryData);
+					startTabViewSet = converter._findObject(converter.viewSets, contentEntryData);
 				}
 			});
 			if (startTabViewSet != null) {

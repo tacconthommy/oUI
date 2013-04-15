@@ -98,20 +98,18 @@ IOSConverter.prototype.convert = function(abstractData, callback){
 
 	var applicationData = {};
 	var applicationName = {};
-	var views = {};
-	var viewSets = {};
 
 	_.each(abstractData, function(objectData, objectId){
 		objectData.id=objectId;
 		switch (objectData.type) {
 			case "View":
-				views[objectId] = objectData;
+				converter.views[objectId] = objectData;
 				break;
 			case "TabViewSet":
-				viewSets[objectId] = objectData;
+				converter.viewSets[objectId] = objectData;
 				break;
 			case "NavigationViewSet":
-				viewSets[objectId] = objectData;
+				converter.viewSets[objectId] = objectData;
 				break;
 			case "Application":
 				applicationName = objectId;
@@ -122,9 +120,9 @@ IOSConverter.prototype.convert = function(abstractData, callback){
 
 	console.log('Found app "'+applicationName+'".');
 
-	var startView = converter._findObject(viewSets, applicationData.start);
+	var startView = converter._findObject(converter.viewSets, applicationData.start);
 	if (!startView) {
-		startView = converter._findObject(views, applicationData.start);
+		startView = converter._findObject(converter.views, applicationData.start);
 	}
 
 	console.log('Start is  "'+startView.id+'" (type: '+startView.type+').');
@@ -134,7 +132,7 @@ IOSConverter.prototype.convert = function(abstractData, callback){
 			var startTabViewSet = null;
 			_.each(startView.contents, function(contentEntryData, contentEntryId){
 				if (_.isString(contentEntryData)) {
-					startTabViewSet = converter._findObject(viewSets, contentEntryData);
+					startTabViewSet = converter._findObject(converter.viewSets, contentEntryData);
 				}
 			});
 			if (startTabViewSet != null) {
